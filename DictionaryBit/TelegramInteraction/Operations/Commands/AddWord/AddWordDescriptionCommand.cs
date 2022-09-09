@@ -20,19 +20,30 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var text = content;
-            var session = _httpContext.HttpContext?.Session;
-            session.Set("addWordDescription", text);
-            var isUsingDictionary = session.Keys.Contains("usedDictionaryId");
+            _session.Set("addWordDescription", text);
+            var isUsingDictionary = _session?.Keys.Contains("usedDictionaryId") ?? false;
             var result = SaveWordResult.NotOk;
             if (isUsingDictionary)
-                result = await SaveWord(session, user);
-            if (result != SaveWordResult.Ok)
-                ChooseDictionary(user);
+                result = await SaveWord(_session, user);
+            if (result == SaveWordResult.Ok)
+            {
+                _session.Remove(CommandNames.CurrentOperation);
+                _session.Remove("addWordForeign");
+                _session.Remove("addWordNative");
+                _session.Remove("addWordDescription");
+            }
+            else
+            {
+                var keyboard = CommandHelper.GetDictionariesKeyboard(_repositoryManager, user);
+                await _botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь для сохранения", replyMarkup: keyboard);
+                _session.Set(CommandNames.CurrentOperation, CommandNames.SaveWord);
+            }
         }
         private async void ChooseDictionary(Data.Entities.User user)
         {
             var keyboard = CommandHelper.GetDictionariesKeyboard(_repositoryManager, user);
             await _botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь для сохранения", replyMarkup: keyboard);
+            _session.Set(CommandNames.CurrentOperation, CommandNames.SaveWord);
         }
         private async Task<SaveWordResult> SaveWord(ISession session, Data.Entities.User user)
         {

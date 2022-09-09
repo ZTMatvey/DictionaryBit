@@ -9,6 +9,7 @@ using DictionaryBit.Data.Repositories.Abstract;
 using DictionaryBit.Data.Repositories.EFCore;
 using DictionaryBit.Service;
 using Microsoft.EntityFrameworkCore;
+using DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();

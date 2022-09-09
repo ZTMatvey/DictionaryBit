@@ -20,17 +20,14 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var httpContext = _httpContext.HttpContext;
-            var response = httpContext.Response;
-            var request = httpContext.Request;
-            var session = httpContext.Session;
             var rnd = new Random().Next(0, 10000);
-            if (!session.Keys.Contains("LastString"))
+            if (!_session.Keys.Contains("LastString"))
             {
                 await _botClient.SendTextMessageAsync(user.ChatId, $"Сессия установлена");
-                session.SetString("LastString", rnd.ToString());
+                _session.SetString("LastString", rnd.ToString());
             }
             else
-                await _botClient.SendTextMessageAsync(user.ChatId, $"Значения поля сессии: {session.Get("LastString")}");
+                await _botClient.SendTextMessageAsync(user.ChatId, $"Значения поля сессии: {_session.Get("LastString")}");
         }
     }
 }

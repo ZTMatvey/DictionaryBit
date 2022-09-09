@@ -8,6 +8,7 @@ namespace DictionaryBit.Service
 {
     public static class CommandNames
     {
+        public const string CurrentOperation = "CurrentOperation";
         public const string Start = "/start";
         public const string AddDictionary = "/addDictionary";
         public const string AddDictionaryName = "/addDictionary name";

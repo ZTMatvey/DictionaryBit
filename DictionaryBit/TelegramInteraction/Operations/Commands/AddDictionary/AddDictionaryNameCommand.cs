@@ -18,10 +18,14 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var name = content;
+            var lowerName = name.ToLower();
             var usersRepositories = _repositoryManager.DictionaryRepository.GetAllDictionariesByUserId(user.Id);
-            var sameNameRepository = usersRepositories.FirstOrDefault(x => x.Name == name);
-            if (sameNameRepository != null)
+            var sameNameDictionary = usersRepositories.FirstOrDefault(x => x.Name.ToLower() == lowerName);
+            if (sameNameDictionary != null)
+            {
+                await _botClient.SendTextMessageAsync(user.ChatId, $"Словарь с таким именем уже существует");
                 return;
+            }
             var dictionary = new Data.Entities.Dictionary()
             {
                 UserId = user.Id,
@@ -29,6 +33,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary
             };
             await _repositoryManager.DictionaryRepository.SaveAsync(dictionary);
             await _botClient.SendTextMessageAsync(user.ChatId, $"Создан словарь \"{name}\"");
+            _session.Remove(CommandNames.CurrentOperation);
         }
     }
 }

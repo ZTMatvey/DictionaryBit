@@ -15,6 +15,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             await _botClient.SendTextMessageAsync(user.ChatId, "Введите название для словаря");
+            _session.Set(CommandNames.CurrentOperation, CommandNames.AddDictionaryName);
         }
     }
 }

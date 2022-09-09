@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.TelegramInteraction.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
 {
     public sealed class SetUsedDictionaryCommand : CommandBase
     {
         public override string CommandName => CommandNames.SetUsedDictionary;
         public SetUsedDictionaryCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext) : base(telegramBot, repositoryManager, httpContext)
-        {}
+        { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var pattern = @"^\/dictionaryName (.*)$";
@@ -29,15 +29,15 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands
             var match = regex.Match(content);
             var name = match.Groups[1].Value;
             var allDictionaries = _repositoryManager.DictionaryRepository.GetAllDictionariesByUserId(user.Id);
-            var dictionary = allDictionaries.FirstOrDefault(x=>x.Name == name);
+            var dictionary = allDictionaries.FirstOrDefault(x => x.Name == name);
             if (dictionary == null)
             {
                 await _botClient.SendTextMessageAsync(user.ChatId, "У вас нет данного словаря");
                 return;
             }
-            var session = _httpContext.HttpContext?.Session;
-            session.Set("usedDictionaryId", dictionary.Id);
+            _session.Set("usedDictionaryId", dictionary.Id);
             await _botClient.SendTextMessageAsync(user.ChatId, $"Установлен словарь с id: {dictionary.Id}");
+            _session.Remove(CommandNames.CurrentOperation);
         }
     }
 }

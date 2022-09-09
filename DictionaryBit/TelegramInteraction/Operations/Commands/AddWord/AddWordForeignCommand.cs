@@ -18,8 +18,9 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var text = content;
-            _httpContext.HttpContext?.Session.Set("addWordForeign", text);
+            _session?.Set("addWordForeign", text);
             await _botClient.SendTextMessageAsync(user.ChatId, "Введите слово или фразу на родном языке");
+            _session.Set(CommandNames.CurrentOperation, CommandNames.AddWordNative);
         }
     }
 }

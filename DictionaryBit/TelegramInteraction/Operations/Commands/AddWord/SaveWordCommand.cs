@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.TelegramInteraction.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
 {
     public sealed class SaveWordCommand : CommandBase
     {
@@ -29,12 +29,6 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands
             }
             var match = regex.Match(content);
             var name = match.Groups[1].Value;
-
-            var session = _httpContext.HttpContext?.Session;
-            var foreign = session.Get<string>("addWordForeign");
-            var native = session.Get<string>("addWordNative");
-            var description = session.Get<string>("addWordDescription");
-
             var allDictionaries = _repositoryManager.DictionaryRepository.GetAllDictionariesByUserId(user.Id);
             var dictionary = allDictionaries.FirstOrDefault(x => x.Name == name);
             if (dictionary == null)
@@ -44,13 +38,26 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands
             }
             var userHasDictionary = _repositoryManager.UserRepository.HasDictionary(user.Id, dictionary.Id);
             if (userHasDictionary)
-            {
-                var word = new Word() { Foreign = foreign, Native = native, Description = description, DictionaryId = dictionary.Id };
-                await _repositoryManager.WordRepository.SaveAsync(word);
-                await _botClient.SendTextMessageAsync(user.ChatId, $"Слово сохранено в словарь \"{dictionary.Name}\"");
-            }
+                await SaveWord(user, dictionary);
             else
                 await _botClient.SendTextMessageAsync(user.ChatId, $"У вас нет данного словаря");
+        }
+        public async Task SaveWord(Data.Entities.User user, Dictionary dictionary)
+        {
+            var foreign = _session.Get<string>("addWordForeign");
+            var native = _session.Get<string>("addWordNative");
+            var description = _session.Get<string>("addWordDescription");
+            var word = new Word() { Foreign = foreign, Native = native, Description = description, DictionaryId = dictionary.Id };
+            await _repositoryManager.WordRepository.SaveAsync(word);
+            await _botClient.SendTextMessageAsync(user.ChatId, $"Слово сохранено в словарь \"{dictionary.Name}\"");
+            RemoveWordDataFromSession();
+        }
+        private void RemoveWordDataFromSession()
+        {
+            _session.Remove(CommandNames.CurrentOperation);
+            _session.Remove("addWordForeign");
+            _session.Remove("addWordNative");
+            _session.Remove("addWordDescription");
         }
     }
 }

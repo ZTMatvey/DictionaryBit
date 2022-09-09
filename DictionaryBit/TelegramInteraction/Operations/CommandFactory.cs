@@ -21,8 +21,6 @@ namespace DictionaryBit.TelegramInteraction.Operations
                 if (result == null)
                     result = commands.First(x => x.CommandName == CommandNames.Default);
             }
-            if(!CommandHasIgnoreAttribute(result))
-                session.Set("LastCommand", result.CommandName);
             return result;
         }
         private static bool CommandHasIgnoreAttribute(CommandBase command)
@@ -32,8 +30,21 @@ namespace DictionaryBit.TelegramInteraction.Operations
         }
         private static CommandBase CheckOperaions(IEnumerable<CommandBase> commands, ISession session, string command)
         {
-            var lastCommand = session.Get<string>("LastCommand");
-            CommandBase slashCheck(){
+            var currentOperation = session.Get<string>("CurrentOperation");
+            
+            var result = currentOperation switch
+            {
+                CommandNames.AddDictionaryName => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionaryName),
+                CommandNames.AddWordForeign => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordForeign),
+                CommandNames.AddWordNative => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordNative),
+                CommandNames.AddWordDescription => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordDescription),
+                CommandNames.SaveWord => commands.First(x=>x.CommandName == CommandNames.SaveWord),
+                CommandNames.SetUsedDictionary => commands.First(x=>x.CommandName == CommandNames.SetUsedDictionary),
+                _ => null
+            };
+            return result;
+            CommandBase slashCheck()
+            {
                 if (command.Contains("/"))
                 {
                     var slashWarning = commands.First(x => x.CommandName == CommandNames.SlashWarning);
@@ -41,18 +52,6 @@ namespace DictionaryBit.TelegramInteraction.Operations
                 }
                 return null;
             }
-            
-            var result = lastCommand switch
-            {
-                CommandNames.AddDictionary => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionaryName),
-                CommandNames.AddWord => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordForeign),
-                CommandNames.AddWordForeign => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordNative),
-                CommandNames.AddWordNative => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordDescription),
-                CommandNames.AddWordDescription => commands.First(x=>x.CommandName == CommandNames.SaveWord),
-                CommandNames.UseDicrionary => commands.First(x=>x.CommandName == CommandNames.SetUsedDictionary),
-                _ => null
-            };
-            return result;
         }
     }
 }
