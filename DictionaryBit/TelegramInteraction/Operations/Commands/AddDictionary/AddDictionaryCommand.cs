@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.BL.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary
 {
     public sealed class AddDictionaryCommand : CommandBase
     {

@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.BL.Handlers
+namespace DictionaryBit.TelegramInteraction.Handlers
 {
     public abstract class TelegramUpdateHandler
     {

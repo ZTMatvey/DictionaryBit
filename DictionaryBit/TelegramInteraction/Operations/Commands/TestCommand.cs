@@ -9,7 +9,7 @@ using Telegram.Bot;
 using Telegram.Bot.Types;
 using Microsoft.AspNetCore.Session;
 
-namespace DictionaryBit.BL.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands
 {
     public sealed class TestCommand : CommandBase
     {

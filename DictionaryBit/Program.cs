@@ -1,5 +1,7 @@
-using DictionaryBit.BL;
-using DictionaryBit.BL.Operations.Commands;
+using DictionaryBit.TelegramInteraction;
+using DictionaryBit.TelegramInteraction.Operations.Commands;
+using DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary;
+using DictionaryBit.TelegramInteraction.Operations.Commands.AddWord;
 using DictionaryBit.Data.Context;
 using DictionaryBit.Data.Entities;
 using DictionaryBit.Data.Repositories;

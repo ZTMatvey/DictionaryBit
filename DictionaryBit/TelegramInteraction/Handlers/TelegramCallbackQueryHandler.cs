@@ -1,4 +1,4 @@
-﻿using DictionaryBit.BL.Operations;
+﻿using DictionaryBit.TelegramInteraction.Operations;
 using DictionaryBit.Data.Entities.Factories;
 using DictionaryBit.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
@@ -7,19 +7,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.BL.Handlers
+namespace DictionaryBit.TelegramInteraction.Handlers
 {
-    public sealed class TelegramUpdateMessageHandler : TelegramUpdateHandler
+    public sealed class TelegramCallbackQueryHandler : TelegramUpdateHandler
     {
-        public TelegramUpdateMessageHandler(RepositoryManager repositoryManager, IServiceProvider serviceProvider, IHttpContextAccessor httpContext)
+        private readonly TelegramBotClient _botClient;
+        public TelegramCallbackQueryHandler(RepositoryManager repositoryManager, TelegramBotClient botClient, IServiceProvider serviceProvider, IHttpContextAccessor httpContext)
             : base(repositoryManager, serviceProvider, httpContext)
-        {}
+        {
+            _botClient = botClient;
+        }
 
         public override async Task HandleAsync(Update update)
         {
-            var tgUser = update.Message.From;
+            var callback = update.CallbackQuery;
+            var tgUser = callback.From;
             var user = _repositoryManager.UserRepository.GetByChatId(tgUser.Id);
             if (user == null)
             {
@@ -27,14 +32,12 @@ namespace DictionaryBit.BL.Handlers
                 await _repositoryManager.UserRepository.SaveAsync(user);
                 return;//todo повторите запрос
             }
-            var text = update.Message.Text;
-            if (string.IsNullOrEmpty(text))
-                return;
             var session = _httpContext.HttpContext?.Session;
             if (session == null)
                 return;
-            var command = CommandFactory.Create(_serviceProvider, session, text);
-            await command?.ExecuteAsync(update, user, text);
+            var command = CommandFactory.Create(_serviceProvider, session, callback.Data);
+            await command?.ExecuteAsync(update, user, callback.Data);
+            await _botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
         }
     }
 }

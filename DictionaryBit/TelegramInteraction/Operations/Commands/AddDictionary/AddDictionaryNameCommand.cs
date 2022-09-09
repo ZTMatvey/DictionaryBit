@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.BL.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary
 {
     public sealed class AddDictionaryNameCommand : CommandBase
     {
         public override string CommandName => CommandNames.AddDictionaryName;
         public AddDictionaryNameCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext) : base(telegramBot, repositoryManager, httpContext)
-        {}
+        { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var name = content;

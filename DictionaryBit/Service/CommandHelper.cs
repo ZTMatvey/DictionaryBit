@@ -14,10 +14,10 @@ namespace DictionaryBit.Service
         public static InlineKeyboardMarkup GetDictionariesKeyboard(RepositoryManager repositoryManager, User user)
         {
             var dictionaries = repositoryManager.DictionaryRepository.GetAllDictionariesByUserId(user.Id);
-            var buttons = new List<InlineKeyboardButton>();
+            var buttons = new List<InlineKeyboardButton[]>();
             foreach (var dictionary in dictionaries)
             {
-                var button = new InlineKeyboardButton(dictionary.Name) {CallbackData = $"/dictionaryName {dictionary.Name}"};
+                var button = new[] { new InlineKeyboardButton(dictionary.Name) { CallbackData = $"/dictionaryName {dictionary.Name}" } };
                 buttons.Add(button);
             }
             var keyboard = new InlineKeyboardMarkup(buttons);

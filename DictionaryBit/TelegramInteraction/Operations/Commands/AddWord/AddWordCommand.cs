@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.BL.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
 {
     public sealed class AddWordCommand : CommandBase
     {

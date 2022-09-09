@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
-namespace DictionaryBit.BL
+namespace DictionaryBit.TelegramInteraction
 {
     public sealed class WebhookTelegramBot: ITelegramBot
     {

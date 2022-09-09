@@ -1,4 +1,4 @@
-﻿using DictionaryBit.BL.Operations.Commands;
+﻿using DictionaryBit.TelegramInteraction.Operations.Commands;
 using DictionaryBit.Service;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
-namespace DictionaryBit.BL.Operations
+namespace DictionaryBit.TelegramInteraction.Operations
 {
     public static class CommandFactory
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Telegram.Bot;
 using Telegram.Bot.Types;
 
-namespace DictionaryBit.BL.Operations.Commands
+namespace DictionaryBit.TelegramInteraction.Operations.Commands
 {
     public abstract class CommandBase//todo подумать как можно избежать большого количества повторяющегося кода в классах наследниках
     {

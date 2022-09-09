@@ -12,7 +12,7 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace DictionaryBit.BL
+namespace DictionaryBit.TelegramInteraction
 {
     public sealed class PollingTelegramBot: ITelegramBot
     {

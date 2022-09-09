@@ -1,7 +1,9 @@
-﻿using DictionaryBit.BL.Handlers;
+﻿using DictionaryBit.TelegramInteraction;
+using DictionaryBit.TelegramInteraction.Handlers;
 using DictionaryBit.Data.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Telegram.Bot;
 using Telegram.Bot.Types;
 
 namespace DictionaryBit.Controllers
@@ -13,14 +15,17 @@ namespace DictionaryBit.Controllers
         private readonly RepositoryManager _repositoryManager;
         private readonly IServiceProvider _serviceProvider;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly TelegramBotClient _botClient;
         public TelegramBotController(
             IServiceProvider serviceProvider,
             RepositoryManager repositoryManager,
-            IHttpContextAccessor contextAccessor)
+            IHttpContextAccessor contextAccessor,
+            ITelegramBot telegramBot)
         {
             _serviceProvider = serviceProvider;
             _repositoryManager = repositoryManager;
             _contextAccessor = contextAccessor;
+            _botClient = telegramBot.GetBot().Result;
         }
 
         [Route("update")]
@@ -37,7 +42,7 @@ namespace DictionaryBit.Controllers
             if (upd.Message != null)
                 handler = new TelegramUpdateMessageHandler(_repositoryManager, _serviceProvider, _contextAccessor);
             else if (upd.CallbackQuery != null)
-                handler = new TelegramCallbackQueryHandler(_repositoryManager, _serviceProvider, _contextAccessor);
+                handler = new TelegramCallbackQueryHandler(_repositoryManager, _botClient, _serviceProvider, _contextAccessor);
             await handler?.HandleAsync(upd);
             return Ok();
         }
