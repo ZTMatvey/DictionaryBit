@@ -26,7 +26,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
             }
             var dictionary = _repositoryManager.DictionaryRepository.GetById(dictionaryId);
             _session.Remove(SessionKeyNames.UsedDictionaryId);
-            await _botClient.SendTextMessageAsync(user.ChatId, $"Словарь {dictionary.Name} теперь неактивен. Продолжайте комманду");
+            await _botClient.SendTextMessageAsync(user.ChatId, $"Словарь \"{dictionary.Name}\" теперь неактивен. Продолжайте комманду");
         }
     }
 }

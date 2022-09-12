@@ -46,7 +46,7 @@ namespace DictionaryBit.TelegramInteraction.Operations
             return result;
             CommandBase slashCheck()
             {
-                if (command.Contains("/") || command.Contains("<") || command.Contains(">"))
+                if (command.Contains("/"))
                 {
                     var slashWarning = commands.First(x => x.CommandName == CommandNames.SlashWarning);
                     return slashWarning;

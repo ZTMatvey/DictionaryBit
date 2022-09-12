@@ -18,7 +18,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands
         {}
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
-            await _botClient.SendTextMessageAsync(user.ChatId, $"Невозможно использовать символы /<>");
+            await _botClient.SendTextMessageAsync(user.ChatId, $"Невозможно использовать символы /");
         }
     }
 }

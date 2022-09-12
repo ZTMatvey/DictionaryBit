@@ -29,10 +29,9 @@ namespace DictionaryBit.Service
         {
             var pattern = @$"^\{CommandNames.DictionaryNameData} " + "([{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?)$";
             var regex = new Regex(pattern);
-            var isMatch = regex.IsMatch(input);
-            if (!isMatch)
-                return default;
             var match = regex.Match(input);
+            if (!match.Success)
+                return default;
             var result = Guid.Parse(match.Groups[1].Value);
             return result;
         }

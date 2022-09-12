@@ -13,7 +13,7 @@ using Telegram.Bot.Types;
 
 namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
 {
-    public sealed class AddWordDescriptionCommand : SaveWordBase
+    public sealed class AddWordDescriptionCommand : SaveOrChooseDictionaryBase
     {
         public override string CommandName => CommandNames.AddWordDescription;
         public AddWordDescriptionCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext, WordInteraction wordInteraction)
@@ -23,20 +23,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         {
             var text = content;
             _session.Set(SessionKeyNames.AddWordDescription, text);
-            var isUsingDictionary = _session?.Keys.Contains(SessionKeyNames.UsedDictionaryId) ?? false;
-            if (isUsingDictionary)
-            {
-                var dictionaryId = _session.Get<Guid>(SessionKeyNames.UsedDictionaryId);
-                await TrySaveAsync(user, dictionaryId);
-            }
-            else
-                await ChooseDictionary(user);
-        }
-        private async Task ChooseDictionary(Data.Entities.User user)
-        {
-            var keyboard = CommandHelper.GetDictionariesKeyboard(_repositoryManager, user);
-            await _botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь для сохранения", replyMarkup: keyboard);
-            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.SaveWord);
+            await base.ExecuteAsync(update, user, content);
         }
     }
 }
