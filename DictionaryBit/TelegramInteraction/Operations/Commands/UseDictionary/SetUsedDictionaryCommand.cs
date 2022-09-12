@@ -18,7 +18,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
         { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
-            var pattern = @"^\/dictionaryName (.*)$";
+            var pattern = @$"^\{CommandNames.DictionaryNameData} (.*)$";
             var regex = new Regex(pattern);
             var isMatch = regex.IsMatch(content);
             if (!isMatch)
@@ -34,9 +34,9 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
                 await _botClient.SendTextMessageAsync(user.ChatId, "У вас нет данного словаря");
                 return;
             }
-            _session.Set("usedDictionaryId", dictionary.Id);
+            _session.Set(SessionKeyNames.UsedDictionaryId, dictionary.Id);
             await _botClient.SendTextMessageAsync(user.ChatId, $"Словарь {dictionary.Name} теперь активен. Продолжайте комманду");
-            _session.Remove(CommandNames.CurrentOperation);
+            _session.Remove(SessionKeyNames.CurrentOperation);
         }
     }
 }

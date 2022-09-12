@@ -19,7 +19,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
         {
             var keyboard = CommandHelper.GetDictionariesKeyboard(_repositoryManager, user);
             await _botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь", replyMarkup: keyboard);
-            _session.Set(CommandNames.CurrentOperation, CommandNames.SetUsedDictionary);
+            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.SetUsedDictionary);
         }
     }
 }

@@ -8,21 +8,21 @@ namespace DictionaryBit.Service
 {
     public static class CommandNames
     {
-        public const string CurrentOperation = "CurrentOperation";
+        public const string DictionaryNameData = "/dictionaryname";
         public const string Start = "/start";
-        public const string AddDictionary = "/addDictionary";
-        public const string AddDictionaryName = "/addDictionary name";
-        public const string SlashWarning = "/slashWarning";
-        public const string GetDictionaries = "/getDictionaries";
-        public const string AddWord = "/addWord";
-        public const string AddWordForeign = "/addWord foreign";
-        public const string AddWordNative = "/addWord native";
-        public const string AddWordDescription = "/addWord description";
+        public const string AddDictionary = "/adddictionary";
+        public const string AddDictionaryName = "/adddictionary name";
+        public const string SlashWarning = "/slashwarning";
+        public const string GetDictionaries = "/getdictionaries";
+        public const string AddWord = "/addword";
+        public const string AddWordForeign = "/addword foreign";
+        public const string AddWordNative = "/addword native";
+        public const string AddWordDescription = "/addword description";
         public const string Test = "/test";
         public const string Default = "/default";
-        public const string UseDicrionary = "/useDictionary";
-        public const string SetUsedDictionary = "/setUsedDictionary";
-        public const string RemoveUsedDictionary = "/removeUsedDictionary";
+        public const string UseDicrionary = "/usedictionary";
+        public const string SetUsedDictionary = "/setuseddictionary";
+        public const string RemoveUsedDictionary = "/removeuseddictionary";
         public const string SaveWord = "/saveWord";
     }
 }

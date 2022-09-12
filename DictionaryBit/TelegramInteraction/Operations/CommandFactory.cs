@@ -30,7 +30,7 @@ namespace DictionaryBit.TelegramInteraction.Operations
         }
         private static CommandBase CheckOperaions(IEnumerable<CommandBase> commands, ISession session, string command)
         {
-            var currentOperation = session.Get<string>("CurrentOperation");
+            var currentOperation = session.Get<string>(SessionKeyNames.CurrentOperation);
             
             var result = currentOperation switch
             {

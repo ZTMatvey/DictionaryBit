@@ -23,21 +23,21 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var text = content;
-            var isUsingDictionary = _session?.Keys.Contains("usedDictionaryId") ?? false;
+            var isUsingDictionary = _session?.Keys.Contains(SessionKeyNames.UsedDictionaryId) ?? false;
             if (isUsingDictionary)
             {
-                var dictionaryId = _session.Get<Guid>("usedDictionaryId");
+                var dictionaryId = _session.Get<Guid>(SessionKeyNames.UsedDictionaryId);
                 var isExist = _wordInteraction.CheckWordForExist(dictionaryId, text);
                 if (isExist)
                 {
                     await _botClient.SendTextMessageAsync(user.ChatId, "Ошибка! Данное слово уже существует");
-                    _session.Remove(CommandNames.CurrentOperation);
+                    _session.Remove(SessionKeyNames.CurrentOperation);
                     return;
                 }
             }
-            _session?.Set("addWordForeign", text);
+            _session?.Set(SessionKeyNames.AddWordForeign, text);
             await _botClient.SendTextMessageAsync(user.ChatId, "Введите слово или фразу на родном языке");
-            _session.Set(CommandNames.CurrentOperation, CommandNames.AddWordNative);
+            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.AddWordNative);
         }
     }
 }

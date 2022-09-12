@@ -17,7 +17,7 @@ namespace DictionaryBit.Service
             var buttons = new List<InlineKeyboardButton[]>();
             foreach (var dictionary in dictionaries)
             {
-                var button = new[] { new InlineKeyboardButton(dictionary.Name) { CallbackData = $"/dictionaryName {dictionary.Id}" } };
+                var button = new[] { new InlineKeyboardButton(dictionary.Name) { CallbackData = $"{CommandNames.DictionaryNameData} {dictionary.Id}" } };
                 buttons.Add(button);
             }
             var keyboard = new InlineKeyboardMarkup(buttons);

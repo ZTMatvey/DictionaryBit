@@ -39,9 +39,9 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         }
         protected async Task<SaveWordResult> SaveWordAsync(ISession session, User user, Guid dictionaryId)//todo попробовать base session
         {
-            var foreign = session.Get<string>("addWordForeign");
-            var native = session.Get<string>("addWordNative");
-            var description = session.Get<string>("addWordDescription");
+            var foreign = session.Get<string>(SessionKeyNames.AddWordForeign);
+            var native = session.Get<string>(SessionKeyNames.AddWordNative);
+            var description = session.Get<string>(SessionKeyNames.AddWordDescription);
             var isExist = _wordInteraction.CheckWordForExist(dictionaryId, foreign);
             if (isExist)
                 return SaveWordResult.DuplicateWord;
@@ -51,10 +51,10 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         }
         protected void RemoveWordDataFromSession()
         {
-            _session.Remove(CommandNames.CurrentOperation);
-            _session.Remove("addWordForeign");
-            _session.Remove("addWordNative");
-            _session.Remove("addWordDescription");
+            _session.Remove(SessionKeyNames.CurrentOperation);
+            _session.Remove(SessionKeyNames.AddWordForeign);
+            _session.Remove(SessionKeyNames.AddWordNative);
+            _session.Remove(SessionKeyNames.AddWordDescription);
         }
     }
 }

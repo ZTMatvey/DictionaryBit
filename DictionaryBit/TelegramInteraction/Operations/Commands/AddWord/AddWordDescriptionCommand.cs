@@ -22,11 +22,11 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var text = content;
-            _session.Set("addWordDescription", text);
-            var isUsingDictionary = _session?.Keys.Contains("usedDictionaryId") ?? false;
+            _session.Set(SessionKeyNames.AddWordDescription, text);
+            var isUsingDictionary = _session?.Keys.Contains(SessionKeyNames.UsedDictionaryId) ?? false;
             if (isUsingDictionary)
             {
-                var dictionaryId = _session.Get<Guid>("usedDictionaryId");
+                var dictionaryId = _session.Get<Guid>(SessionKeyNames.UsedDictionaryId);
                 await TrySaveAsync(user, dictionaryId);
             }
             else
@@ -36,7 +36,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         {
             var keyboard = CommandHelper.GetDictionariesKeyboard(_repositoryManager, user);
             await _botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь для сохранения", replyMarkup: keyboard);
-            _session.Set(CommandNames.CurrentOperation, CommandNames.SaveWord);
+            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.SaveWord);
         }
     }
 }

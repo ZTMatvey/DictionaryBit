@@ -33,7 +33,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary
             };
             await _repositoryManager.DictionaryRepository.SaveAsync(dictionary);
             await _botClient.SendTextMessageAsync(user.ChatId, $"Создан словарь \"{name}\"");
-            _session.Remove(CommandNames.CurrentOperation);
+            _session.Remove(SessionKeyNames.CurrentOperation);
         }
     }
 }

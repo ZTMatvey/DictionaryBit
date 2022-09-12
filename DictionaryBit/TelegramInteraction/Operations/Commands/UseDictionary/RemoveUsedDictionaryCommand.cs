@@ -18,14 +18,14 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
 
         public async override Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
-            var dictionaryId = _session.Get<Guid>("usedDictionaryId");
+            var dictionaryId = _session.Get<Guid>(SessionKeyNames.UsedDictionaryId);
             if (dictionaryId == default)
             {
                 await _botClient.SendTextMessageAsync(user.ChatId, $"У вас нет активного словаря");
                 return;
             }
             var dictionary = _repositoryManager.DictionaryRepository.GetById(dictionaryId);
-            _session.Remove("usedDictionaryId");
+            _session.Remove(SessionKeyNames.UsedDictionaryId);
             await _botClient.SendTextMessageAsync(user.ChatId, $"Словарь {dictionary.Name} теперь неактивен. Продолжайте комманду");
         }
     }

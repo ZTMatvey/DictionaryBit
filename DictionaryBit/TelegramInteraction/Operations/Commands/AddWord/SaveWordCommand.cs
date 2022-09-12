@@ -21,7 +21,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
-            var pattern = @"^\/dictionaryName (.*)$";
+            var pattern = @$"^\{CommandNames.DictionaryNameData} (.*)$";
             var regex = new Regex(pattern);
             var isMatch = regex.IsMatch(content);
             if (!isMatch)
