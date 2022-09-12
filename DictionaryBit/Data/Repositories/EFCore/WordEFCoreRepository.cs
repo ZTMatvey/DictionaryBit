@@ -30,10 +30,18 @@ namespace DictionaryBit.Data.Repositories.EFCore
             var entity = _context.Words.FirstOrDefault(x => x.Id == id);
             return entity;
         }
-        public IEnumerable<Word> GetAllDictionariesByDictionaryId(Guid dictionaryId)
+        public IEnumerable<Word> GetAllWordsByDictionaryId(Guid dictionaryId)
         {
             var result = _context.Words.Where(x => x.DictionaryId == dictionaryId);
             return result;
+        }
+        public bool WordExist(Guid dictionaryId, string foreign)
+        {
+            var lowerForeign = foreign.ToLower();
+            var words = GetAllWordsByDictionaryId(dictionaryId);
+            var word = words?.FirstOrDefault(x => x.Foreign.ToLower() == lowerForeign);
+            var isExist = word != null;
+            return isExist;
         }
     }
 }

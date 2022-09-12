@@ -10,6 +10,7 @@ using DictionaryBit.Data.Repositories.EFCore;
 using DictionaryBit.Service;
 using Microsoft.EntityFrameworkCore;
 using DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary;
+using DictionaryBit.Data.Interaction;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -27,6 +28,7 @@ services.AddSingleton<Config>();
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();
 services.AddScoped<WordRepository, WordEFCoreRepository>();
+services.AddScoped<WordInteraction>();
 
 services.AddTransient<CommandBase, AddDictionaryCommand>();
 services.AddTransient<CommandBase, AddDictionaryNameCommand>();

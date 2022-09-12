@@ -10,6 +10,7 @@ namespace DictionaryBit.Enums
     {
         Ok,
         NotOk,
-        UserHasNotDictionary
+        UserHasNoDictionary,
+        DuplicateWord
     }
 }

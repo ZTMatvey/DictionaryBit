@@ -27,9 +27,8 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
                 return;
             }
             var match = regex.Match(content);
-            var name = match.Groups[1].Value;
-            var allDictionaries = _repositoryManager.DictionaryRepository.GetAllDictionariesByUserId(user.Id);
-            var dictionary = allDictionaries.FirstOrDefault(x => x.Name == name);
+            Guid.TryParse(match.Groups[1].Value, out var dictionaryId);
+            var dictionary = _repositoryManager.DictionaryRepository.GetById(dictionaryId);
             if (dictionary == null)
             {
                 await _botClient.SendTextMessageAsync(user.ChatId, "У вас нет данного словаря");
