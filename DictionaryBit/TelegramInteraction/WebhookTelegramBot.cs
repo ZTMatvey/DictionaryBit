@@ -12,9 +12,9 @@ namespace DictionaryBit.TelegramInteraction
     {
         private readonly Config _config;
         private TelegramBotClient _botClient;
-        public WebhookTelegramBot()
+        public WebhookTelegramBot(Config config)
         {
-            _config = Config.Instance;
+            _config = config;
         }
 
         public async void Dispose()

@@ -25,6 +25,10 @@ namespace DictionaryBit.Data.Repositories.EFCore
                 _context.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             await _context.SaveChangesAsync();
         }
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _context.Users;
+        }
         public User GetById(Guid id)
         {
             var entity = _context.Users.FirstOrDefault(x=> x.Id == id);

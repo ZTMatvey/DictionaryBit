@@ -16,6 +16,7 @@ namespace DictionaryBit.Data.Entities
         [MaxLength(50)]
         public string? FirstName { get; set; }
         public long ChatId { get; set; }
-        public ICollection<Dictionary> Dictionaries { get; set; }
+        public ICollection<Dictionary>? Dictionaries { get; set; }
+        public ICollection<Word>? Words { get; set; }
     }
 }

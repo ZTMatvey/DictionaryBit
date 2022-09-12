@@ -27,15 +27,17 @@ namespace DictionaryBit.Data.Repositories.EFCore
         }
         public Word GetById(Guid id)
         {
-            var entity = _context.Words.FirstOrDefault(x => x.Id == id);
-            return entity;
+            return _context.Words.FirstOrDefault(x => x.Id == id);
         }
         public IEnumerable<Word> GetAllWordsByDictionaryId(Guid dictionaryId)
         {
-            var result = _context.Words.Where(x => x.DictionaryId == dictionaryId);
-            return result;
+            return _context.Words.Where(x => x.DictionaryId == dictionaryId);
         }
-        public bool WordExist(Guid dictionaryId, string foreign)
+        public IEnumerable<Word> GetAllWordsByUserId(Guid userId)
+        {
+            return _context.Words.Where(x => x.UserId == userId);
+        }
+        public bool IsWordExist(Guid dictionaryId, string foreign)
         {
             var lowerForeign = foreign.ToLower();
             var words = GetAllWordsByDictionaryId(dictionaryId);

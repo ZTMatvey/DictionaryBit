@@ -36,7 +36,7 @@ namespace DictionaryBit.Data.Interaction
         }
         public bool CheckWordForExist(Guid dictionaryId, string foreign)
         {
-            var result = _repositoryManager.WordRepository.WordExist(dictionaryId, foreign);
+            var result = _repositoryManager.WordRepository.IsWordExist(dictionaryId, foreign);
             return result;
 
         }

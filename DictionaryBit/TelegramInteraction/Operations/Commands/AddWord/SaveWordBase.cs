@@ -45,7 +45,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
             var isExist = _wordInteraction.CheckWordForExist(dictionaryId, foreign);
             if (isExist)
                 return SaveWordResult.DuplicateWord;
-            var word = new Word() { Foreign = foreign, Native = native, Description = description, DictionaryId = dictionaryId };
+            var word = new Word() { Foreign = foreign, Native = native, Description = description, DictionaryId = dictionaryId, UserId = user.Id };
             var result = await _wordInteraction.SaveAsync(word, user);
             return result;
         }

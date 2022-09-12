@@ -19,9 +19,9 @@ namespace DictionaryBit.TelegramInteraction
         private static readonly HttpClient _client = new HttpClient();
         private readonly Config _config;
         private TelegramBotClient _botClient;
-        public PollingTelegramBot()
+        public PollingTelegramBot(Config config)
         {
-            _config = Config.Instance;
+            _config = config;
         }
 
         public async void Dispose()

@@ -11,6 +11,7 @@ namespace DictionaryBit.Data.Repositories.Abstract
     {
         Task SaveAsync(User entity);
         User GetById(Guid id);
+        IEnumerable<User> GetAllUsers();
         User GetByChatId(long id);
         bool HasDictionary(Guid userId, Guid dictionaryId);
     }

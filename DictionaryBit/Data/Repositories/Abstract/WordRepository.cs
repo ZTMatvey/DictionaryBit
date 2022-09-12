@@ -9,9 +9,10 @@ namespace DictionaryBit.Data.Repositories.Abstract
 {
     public interface WordRepository
     {
+        IEnumerable<Word> GetAllWordsByUserId(Guid userId);
         IEnumerable<Word> GetAllWordsByDictionaryId(Guid dictionaryId);
         Word GetById(Guid id);
         Task SaveAsync(Word entity);
-        bool WordExist(Guid dictionaryId, string foreign);
+        bool IsWordExist(Guid dictionaryId, string foreign);
     }
 }
