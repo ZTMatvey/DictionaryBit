@@ -40,12 +40,13 @@ namespace DictionaryBit.TelegramInteraction.Operations
                 CommandNames.AddWordDescription => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordDescription),
                 CommandNames.SaveWord => commands.First(x=>x.CommandName == CommandNames.SaveWord),
                 CommandNames.SetUsedDictionary => commands.First(x=>x.CommandName == CommandNames.SetUsedDictionary),
+                CommandNames.GetWords => commands.First(x=>x.CommandName == CommandNames.GetWords),
                 _ => null
             };
             return result;
             CommandBase slashCheck()
             {
-                if (command.Contains("/"))
+                if (command.Contains("/") || command.Contains("<") || command.Contains(">"))
                 {
                     var slashWarning = commands.First(x => x.CommandName == CommandNames.SlashWarning);
                     return slashWarning;

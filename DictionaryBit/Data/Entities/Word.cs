@@ -12,5 +12,9 @@ namespace DictionaryBit.Data.Entities
         [Required]
         public Dictionary Dictionary { get; set; }
         public Guid DictionaryId { get; set; }
+        public override string ToString()
+        {
+            return $"<{Foreign}> — <{Native}> — <{Description}>";
+        }
     }
 }

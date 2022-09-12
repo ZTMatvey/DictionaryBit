@@ -21,16 +21,12 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
         { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
-            var pattern = @$"^\{CommandNames.DictionaryNameData} (.*)$";
-            var regex = new Regex(pattern);
-            var isMatch = regex.IsMatch(content);
-            if (!isMatch)
+            var dictionaryId = CommandHelper.GetDictionaryIdOrDefault(content);
+            if (dictionaryId == default)
             {
                 await _botClient.SendTextMessageAsync(user.ChatId, "У вас нет данного словаря");
                 return;
             }
-            var match = regex.Match(content);
-            Guid.TryParse(match.Groups[1].Value, out var dictionaryId);
             await TrySaveAsync(user, dictionaryId);
         }
     }

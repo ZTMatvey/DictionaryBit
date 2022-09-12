@@ -14,6 +14,7 @@ namespace DictionaryBit.Service
         public const string AddDictionaryName = "/adddictionary name";
         public const string SlashWarning = "/slashwarning";
         public const string GetDictionaries = "/getdictionaries";
+        public const string GetWords = "/getwords";
         public const string AddWord = "/addword";
         public const string AddWordForeign = "/addword foreign";
         public const string AddWordNative = "/addword native";

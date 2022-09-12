@@ -4,7 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Telegram.Bot;
 using Telegram.Bot.Types.ReplyMarkups;
 
 namespace DictionaryBit.Service
@@ -22,6 +24,17 @@ namespace DictionaryBit.Service
             }
             var keyboard = new InlineKeyboardMarkup(buttons);
             return keyboard;
+        }
+        public static Guid GetDictionaryIdOrDefault(string input)
+        {
+            var pattern = @$"^\{CommandNames.DictionaryNameData} " + "([{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?)$";
+            var regex = new Regex(pattern);
+            var isMatch = regex.IsMatch(input);
+            if (!isMatch)
+                return default;
+            var match = regex.Match(input);
+            var result = Guid.Parse(match.Groups[1].Value);
+            return result;
         }
     }
 }

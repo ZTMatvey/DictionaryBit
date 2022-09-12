@@ -11,14 +11,14 @@ using Telegram.Bot.Types;
 namespace DictionaryBit.TelegramInteraction.Operations.Commands
 {
     [IgnoreCommand]
-    public sealed class SlashWarningCommand : CommandBase
+    public sealed class SymbolsWarningCommand : CommandBase
     {
         public override string CommandName => CommandNames.SlashWarning;
-        public SlashWarningCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext) : base(telegramBot, repositoryManager, httpContext)
+        public SymbolsWarningCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext) : base(telegramBot, repositoryManager, httpContext)
         {}
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
-            await _botClient.SendTextMessageAsync(user.ChatId, $"Невозможно использовать символ '/'");
+            await _botClient.SendTextMessageAsync(user.ChatId, $"Невозможно использовать символы /<>");
         }
     }
 }

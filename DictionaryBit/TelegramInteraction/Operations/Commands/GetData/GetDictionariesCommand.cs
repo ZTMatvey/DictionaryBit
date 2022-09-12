@@ -21,6 +21,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands
         {
             var keyboard = CommandHelper.GetDictionariesKeyboard(_repositoryManager, user);
             await _botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь", replyMarkup: keyboard);
+            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.GetWords);
         }
     }
 }
