@@ -40,6 +40,7 @@ services.AddTransient<CommandBase, DefaultCommand>();
 services.AddTransient<CommandBase, GetDictionariesCommand>();
 services.AddTransient<CommandBase, SaveWordCommand>();
 services.AddTransient<CommandBase, SetUsedDictionaryCommand>();
+services.AddTransient<CommandBase, RemoveUsedDictionaryCommand>();
 services.AddTransient<CommandBase, SlashWarningCommand>();
 services.AddTransient<CommandBase, StartCommand>();
 services.AddTransient<CommandBase, TestCommand>();

@@ -14,11 +14,18 @@ namespace DictionaryBit.Service
             var jsonedValue = JsonConvert.SerializeObject(value);
             session?.SetString(key, jsonedValue);
         }
-        public static T Get<T>(this ISession session, string key)
+        public static T? Get<T>(this ISession session, string key)
         {
             var value = session?.GetString(key) ?? string.Empty;
-            var deserializedValue = JsonConvert.DeserializeObject<T>(value);
-            return deserializedValue;
+            try
+            {
+                var deserializedValue = JsonConvert.DeserializeObject<T>(value);
+                return deserializedValue;
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
     }
 }

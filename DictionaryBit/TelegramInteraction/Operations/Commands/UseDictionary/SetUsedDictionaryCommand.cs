@@ -35,7 +35,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary
                 return;
             }
             _session.Set("usedDictionaryId", dictionary.Id);
-            await _botClient.SendTextMessageAsync(user.ChatId, $"Установлен словарь с id: {dictionary.Id}");
+            await _botClient.SendTextMessageAsync(user.ChatId, $"Словарь {dictionary.Name} теперь активен. Продолжайте комманду");
             _session.Remove(CommandNames.CurrentOperation);
         }
     }

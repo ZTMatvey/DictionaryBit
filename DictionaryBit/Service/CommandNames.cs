@@ -22,6 +22,7 @@ namespace DictionaryBit.Service
         public const string Default = "/default";
         public const string UseDicrionary = "/useDictionary";
         public const string SetUsedDictionary = "/setUsedDictionary";
+        public const string RemoveUsedDictionary = "/removeUsedDictionary";
         public const string SaveWord = "/saveWord";
     }
 }
