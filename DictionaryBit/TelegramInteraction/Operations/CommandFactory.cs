@@ -1,5 +1,5 @@
-﻿using DictionaryBit.TelegramInteraction.Operations.Commands;
-using DictionaryBit.Service;
+﻿using DictionaryBit.Service;
+using DictionaryBit.TelegramInteraction.Operations.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;

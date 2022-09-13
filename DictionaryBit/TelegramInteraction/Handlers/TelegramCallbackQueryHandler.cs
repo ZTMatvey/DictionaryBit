@@ -36,7 +36,7 @@ namespace DictionaryBit.TelegramInteraction.Handlers
             if (session == null)
                 return;
             var command = CommandFactory.Create(_serviceProvider, session, callback.Data);
-            await command?.ExecuteAsync(update, user, callback.Data);
+            await command?.ExecuteAsync(user, callback.Data);
             await _botClient.AnswerCallbackQueryAsync(update.CallbackQuery.Id);
         }
     }

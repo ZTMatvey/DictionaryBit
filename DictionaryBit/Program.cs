@@ -7,6 +7,7 @@ using DictionaryBit.Data.Repositories.EFCore;
 using DictionaryBit.Service;
 using Microsoft.EntityFrameworkCore;
 using DictionaryBit.Data.Interaction;
+using DictionaryBit.TelegramInteraction.Operations.Command;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -20,6 +21,9 @@ services.AddSingleton<ITelegramBot, PollingTelegramBot>();
 services.AddScoped<RepositoryManager>();
 services.AddScoped<NotificationManager>();
 services.AddSingleton(config);
+
+services.AddScoped<CommandBase, StartCommand>();
+services.AddScoped<CommandBase, DefaultCommand>();
 
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();
