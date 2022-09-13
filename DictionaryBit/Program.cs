@@ -1,7 +1,4 @@
 using DictionaryBit.TelegramInteraction;
-using DictionaryBit.TelegramInteraction.Operations.Commands;
-using DictionaryBit.TelegramInteraction.Operations.Commands.AddDictionary;
-using DictionaryBit.TelegramInteraction.Operations.Commands.AddWord;
 using DictionaryBit.Data.Context;
 using DictionaryBit.Data.Entities;
 using DictionaryBit.Data.Repositories;
@@ -9,10 +6,7 @@ using DictionaryBit.Data.Repositories.Abstract;
 using DictionaryBit.Data.Repositories.EFCore;
 using DictionaryBit.Service;
 using Microsoft.EntityFrameworkCore;
-using DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary;
 using DictionaryBit.Data.Interaction;
-using DictionaryBit.TelegramInteraction.Operations.Commands.GetData;
-using DictionaryBit.TelegramInteraction.Operations.Commands.AddEditWord;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -31,24 +25,6 @@ services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();
 services.AddScoped<WordRepository, WordEFCoreRepository>();
 services.AddScoped<WordInteraction>();
-
-services.AddTransient<CommandBase, AddDictionaryCommand>();
-services.AddTransient<CommandBase, AddDictionaryNameCommand>();
-services.AddTransient<CommandBase, AddWordCommand>();
-services.AddTransient<CommandBase, AddEditWordDescriptionCommand>();
-services.AddTransient<CommandBase, AddEditWordForeignCommand>();
-services.AddTransient<CommandBase, AddEditWordNativeCommand>();
-services.AddTransient<CommandBase, DefaultCommand>();
-services.AddTransient<CommandBase, GetDictionariesCommand>();
-services.AddTransient<CommandBase, GetWordsCommand>();
-services.AddTransient<CommandBase, SaveWordCommand>();
-services.AddTransient<CommandBase, SetUsedDictionaryCommand>();
-services.AddTransient<CommandBase, RemoveUsedDictionaryCommand>();
-services.AddTransient<CommandBase, SymbolsWarningCommand>();
-services.AddTransient<CommandBase, StartCommand>();
-services.AddTransient<CommandBase, TestCommand>();
-services.AddTransient<CommandBase, UseDictionaryCommand>();
-services.AddTransient<CommandBase, EditWordCommand>();
 
 services.AddHttpContextAccessor();
 services.AddDistributedMemoryCache();
