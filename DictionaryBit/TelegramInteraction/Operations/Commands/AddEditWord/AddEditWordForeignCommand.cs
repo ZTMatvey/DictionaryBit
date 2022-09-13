@@ -11,11 +11,11 @@ using Telegram.Bot.Types;
 
 namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
 {
-    public sealed class AddWordForeignCommand : CommandBase
+    public sealed class AddEditWordForeignCommand : CommandBase
     {
         private readonly WordInteraction _wordInteraction;
-        public override string CommandName => CommandNames.AddWordForeign;
-        public AddWordForeignCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext, WordInteraction wordInteraction)
+        public override string CommandName => CommandNames.AddEditWordForeign;
+        public AddEditWordForeignCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext, WordInteraction wordInteraction)
             : base(telegramBot, repositoryManager, httpContext)
         {
             _wordInteraction = wordInteraction;
@@ -30,14 +30,18 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
                 var isExist = _wordInteraction.CheckWordForExist(dictionaryId, text);
                 if (isExist)
                 {
-                    await _botClient.SendTextMessageAsync(user.ChatId, "Ошибка! Данное слово уже существует");
-                    _session.Remove(SessionKeyNames.CurrentOperation);
-                    return;
+                    var isEditing = _session.Get<Guid>(SessionKeyNames.AddEditWordId) != default;
+                    if (!isEditing)
+                    {
+                        await _botClient.SendTextMessageAsync(user.ChatId, "Ошибка! Данное слово уже существует");
+                        _session.Remove(SessionKeyNames.CurrentOperation);
+                        return;
+                    }
                 }
             }
-            _session?.Set(SessionKeyNames.AddWordForeign, text);
+            _session?.Set(SessionKeyNames.AddEditWordForeign, text);
             await _botClient.SendTextMessageAsync(user.ChatId, "Введите слово или фразу на родном языке");
-            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.AddWordNative);
+            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.AddEditWordNative);
         }
     }
 }

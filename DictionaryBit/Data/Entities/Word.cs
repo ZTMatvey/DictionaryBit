@@ -17,7 +17,7 @@ namespace DictionaryBit.Data.Entities
         public User User { get; set; }
         public override string ToString()
         {
-            return $"<{Foreign}> — <{Native}> — <{Description}>";
+            return $"{Foreign}/{Native}/{Description}";
         }
     }
 }

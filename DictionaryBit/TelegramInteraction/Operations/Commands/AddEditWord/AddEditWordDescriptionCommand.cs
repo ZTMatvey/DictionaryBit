@@ -13,16 +13,16 @@ using Telegram.Bot.Types;
 
 namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
 {
-    public sealed class AddWordDescriptionCommand : SaveOrChooseDictionaryBase
+    public sealed class AddEditWordDescriptionCommand : SaveOrChooseDictionaryBase
     {
-        public override string CommandName => CommandNames.AddWordDescription;
-        public AddWordDescriptionCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext, WordInteraction wordInteraction)
+        public override string CommandName => CommandNames.AddEditWordDescription;
+        public AddEditWordDescriptionCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext, WordInteraction wordInteraction)
             : base(telegramBot, repositoryManager, httpContext, wordInteraction)
         { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var text = content;
-            _session.Set(SessionKeyNames.AddWordDescription, text);
+            _session.Set(SessionKeyNames.AddEditWordDescription, text);
             await base.ExecuteAsync(update, user, content);
         }
     }

@@ -27,7 +27,8 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
                 await _botClient.SendTextMessageAsync(user.ChatId, "У вас нет данного словаря");
                 return;
             }
-            await TrySaveAsync(user, dictionaryId);
+            _session.Set(SessionKeyNames.AddEditDictionaryId, dictionaryId);
+            await TrySaveAsync(user);
         }
     }
 }

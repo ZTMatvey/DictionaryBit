@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using DictionaryBit.TelegramInteraction.Operations.Commands.UseDictionary;
 using DictionaryBit.Data.Interaction;
 using DictionaryBit.TelegramInteraction.Operations.Commands.GetData;
+using DictionaryBit.TelegramInteraction.Operations.Commands.AddEditWord;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -34,9 +35,9 @@ services.AddScoped<WordInteraction>();
 services.AddTransient<CommandBase, AddDictionaryCommand>();
 services.AddTransient<CommandBase, AddDictionaryNameCommand>();
 services.AddTransient<CommandBase, AddWordCommand>();
-services.AddTransient<CommandBase, AddWordDescriptionCommand>();
-services.AddTransient<CommandBase, AddWordForeignCommand>();
-services.AddTransient<CommandBase, AddWordNativeCommand>();
+services.AddTransient<CommandBase, AddEditWordDescriptionCommand>();
+services.AddTransient<CommandBase, AddEditWordForeignCommand>();
+services.AddTransient<CommandBase, AddEditWordNativeCommand>();
 services.AddTransient<CommandBase, DefaultCommand>();
 services.AddTransient<CommandBase, GetDictionariesCommand>();
 services.AddTransient<CommandBase, GetWordsCommand>();
@@ -47,6 +48,7 @@ services.AddTransient<CommandBase, SymbolsWarningCommand>();
 services.AddTransient<CommandBase, StartCommand>();
 services.AddTransient<CommandBase, TestCommand>();
 services.AddTransient<CommandBase, UseDictionaryCommand>();
+services.AddTransient<CommandBase, EditWordCommand>();
 
 services.AddHttpContextAccessor();
 services.AddDistributedMemoryCache();

@@ -21,7 +21,8 @@ namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
             if (isUsingDictionary)
             {
                 var dictionaryId = _session.Get<Guid>(SessionKeyNames.UsedDictionaryId);
-                await TrySaveAsync(user, dictionaryId);
+                _session.Set(SessionKeyNames.AddEditDictionaryId, dictionaryId);
+                await TrySaveAsync(user);
             }
             else
                 await ChooseDictionary(user);

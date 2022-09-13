@@ -35,9 +35,9 @@ namespace DictionaryBit.TelegramInteraction.Operations
             var result = currentOperation switch
             {
                 CommandNames.AddDictionaryName => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionaryName),
-                CommandNames.AddWordForeign => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordForeign),
-                CommandNames.AddWordNative => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordNative),
-                CommandNames.AddWordDescription => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddWordDescription),
+                CommandNames.AddEditWordForeign => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddEditWordForeign),
+                CommandNames.AddEditWordNative => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddEditWordNative),
+                CommandNames.AddEditWordDescription => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddEditWordDescription),
                 CommandNames.SaveWord => commands.First(x=>x.CommandName == CommandNames.SaveWord),
                 CommandNames.SetUsedDictionary => commands.First(x=>x.CommandName == CommandNames.SetUsedDictionary),
                 CommandNames.GetWords => commands.First(x=>x.CommandName == CommandNames.GetWords),

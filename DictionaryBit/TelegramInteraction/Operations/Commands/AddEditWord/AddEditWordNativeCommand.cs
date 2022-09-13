@@ -10,17 +10,17 @@ using Telegram.Bot.Types;
 
 namespace DictionaryBit.TelegramInteraction.Operations.Commands.AddWord
 {
-    public sealed class AddWordNativeCommand : CommandBase
+    public sealed class AddEditWordNativeCommand : CommandBase
     {
-        public override string CommandName => CommandNames.AddWordNative;
-        public AddWordNativeCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext)
+        public override string CommandName => CommandNames.AddEditWordNative;
+        public AddEditWordNativeCommand(ITelegramBot telegramBot, RepositoryManager repositoryManager, IHttpContextAccessor httpContext)
             : base(telegramBot, repositoryManager, httpContext) { }
         public override async Task ExecuteAsync(Update update, Data.Entities.User user, string content)
         {
             var text = content;
-            _session?.Set(SessionKeyNames.AddWordNative, text);
+            _session?.Set(SessionKeyNames.AddEditWordNative, text);
             await _botClient.SendTextMessageAsync(user.ChatId, "Введите описание слова");
-            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.AddWordDescription);
+            _session.Set(SessionKeyNames.CurrentOperation, CommandNames.AddEditWordDescription);
         }
     }
 }

@@ -8,10 +8,12 @@ namespace DictionaryBit.Service
 {
     public static class SessionKeyNames
     {
-        public const string AddWordDescription = "addworddescription";
         public const string UsedDictionaryId = "useddictionaryid";
-        public const string AddWordNative = "addwordnative";
-        public const string AddWordForeign = "addwordforeign";
         public const string CurrentOperation = "currentoperation";
+        public const string AddEditWordDescription = "addeditworddescription";
+        public const string AddEditWordNative = "addeditowrdnative";
+        public const string AddEditWordForeign = "addeditwordforeign";
+        public const string AddEditWordId = "addeditwordid";
+        public const string AddEditDictionaryId = "addeditdictionaryid";
     }
 }
