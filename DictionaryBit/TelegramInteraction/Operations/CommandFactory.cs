@@ -23,24 +23,14 @@ namespace DictionaryBit.TelegramInteraction.Operations
             }
             return result;
         }
-        private static bool CommandHasIgnoreAttribute(CommandBase command)
-        {
-            var attribute = Attribute.GetCustomAttribute(command.GetType(), typeof(IgnoreCommandAttribute));
-            return attribute != null;
-        }
         private static CommandBase CheckOperaions(IEnumerable<CommandBase> commands, ISession session, string command)
         {
             var currentOperation = session.Get<string>(SessionKeyNames.CurrentOperation);
             
             var result = currentOperation switch
             {
-                CommandNames.AddDictionaryName => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionaryName),
-                CommandNames.AddEditWordForeign => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddEditWordForeign),
-                CommandNames.AddEditWordNative => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddEditWordNative),
-                CommandNames.AddEditWordDescription => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddEditWordDescription),
-                CommandNames.SaveWord => commands.First(x=>x.CommandName == CommandNames.SaveWord),
-                CommandNames.SetUsedDictionary => commands.First(x=>x.CommandName == CommandNames.SetUsedDictionary),
-                CommandNames.GetWords => commands.First(x=>x.CommandName == CommandNames.GetWords),
+                CommandNames.SetActiveDictionary => commands.First(x => x.CommandName == CommandNames.SetActiveDictionary),
+                //CommandNames.AddDictionaryName => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionaryName),
                 _ => null
             };
             return result;

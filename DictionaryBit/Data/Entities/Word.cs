@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace DictionaryBit.Data.Entities
 {
@@ -10,10 +11,10 @@ namespace DictionaryBit.Data.Entities
         public string Native { get; set; }
         public string? Description { get; set; }
         [Required]
-        public Dictionary Dictionary { get; set; }
         public Guid DictionaryId { get; set; }
-        public Guid UserId { get; set; }
         [Required]
+        public Guid UserId { get; set; }
+        public Dictionary Dictionary { get; set; }
         public User User { get; set; }
         public override string ToString()
         {

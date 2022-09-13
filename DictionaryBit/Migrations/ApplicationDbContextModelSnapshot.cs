@@ -39,7 +39,7 @@ namespace DictionaryBit.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Dictionaries");
+                    b.ToTable("Dictionaries", (string)null);
                 });
 
             modelBuilder.Entity("DictionaryBit.Data.Entities.User", b =>
@@ -65,7 +65,7 @@ namespace DictionaryBit.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("DictionaryBit.Data.Entities.Word", b =>
@@ -97,7 +97,7 @@ namespace DictionaryBit.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Words");
+                    b.ToTable("Words", (string)null);
                 });
 
             modelBuilder.Entity("DictionaryBit.Data.Entities.Dictionary", b =>

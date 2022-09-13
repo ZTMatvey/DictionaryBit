@@ -19,7 +19,7 @@ namespace DictionaryBit.Service
             var buttons = new List<InlineKeyboardButton[]>();
             foreach (var dictionary in dictionaries)
             {
-                var button = new[] { new InlineKeyboardButton(dictionary.Name) { CallbackData = $"{CommandNames.DictionaryNameData} {dictionary.Id}" } };
+                var button = new[] { new InlineKeyboardButton(dictionary.Name) { CallbackData = $"{CommandNames.DictionaryIdData} {dictionary.Id}" } };
                 buttons.Add(button);
             }
             var keyboard = new InlineKeyboardMarkup(buttons);
@@ -27,7 +27,7 @@ namespace DictionaryBit.Service
         }
         public static Guid GetDictionaryIdOrDefault(string input)
         {
-            var pattern = @$"^\{CommandNames.DictionaryNameData} " + "([{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?)$";
+            var pattern = @$"^\{CommandNames.DictionaryIdData} " + "([{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?)$";
             var regex = new Regex(pattern);
             var match = regex.Match(input);
             if (!match.Success)

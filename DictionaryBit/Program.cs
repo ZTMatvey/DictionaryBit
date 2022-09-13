@@ -8,6 +8,8 @@ using DictionaryBit.Service;
 using Microsoft.EntityFrameworkCore;
 using DictionaryBit.Data.Interaction;
 using DictionaryBit.TelegramInteraction.Operations.Command;
+using DictionaryBit.TelegramInteraction.Operations;
+using DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -22,9 +24,14 @@ services.AddScoped<RepositoryManager>();
 services.AddScoped<NotificationManager>();
 services.AddSingleton(config);
 
+services.AddSingleton<ActiveDictionary>();
+
+services.AddScoped<CommandBase, UseDictionaryCommand>();
+services.AddScoped<CommandBase, SetActiveDictionaryCommand>();
 services.AddScoped<CommandBase, StartCommand>();
 services.AddScoped<CommandBase, DefaultCommand>();
 services.AddScoped<CommandBase, SymbolWarningCommand>();
+services.AddScoped<CommandBase, LossActiveDictionaryCommand>();
 
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();
