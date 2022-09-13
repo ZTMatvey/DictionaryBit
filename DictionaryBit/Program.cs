@@ -14,7 +14,6 @@ using DictionaryBit.Data.Interaction;
 using DictionaryBit.TelegramInteraction.Operations.Commands.GetData;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Logging.ClearProviders();
 var services = builder.Services;
 services.AddHostedService<NotificationManager>();
 var sqlConnectionString = builder.Configuration.GetConnectionString("DefaultDBConnection");

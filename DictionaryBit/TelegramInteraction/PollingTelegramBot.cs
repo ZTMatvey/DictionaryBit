@@ -58,7 +58,16 @@ namespace DictionaryBit.TelegramInteraction
         {
             var jsonUpdate = JsonConvert.SerializeObject(update);
             var content = new StringContent(jsonUpdate, Encoding.UTF8, "application/json");
-            await _client.PostAsync($"{_config.Url}/api/message/update", content);
+            try
+            {
+                await _client.PostAsync($"{_config.Url}/api/message/update", content);
+            }
+            catch (Exception e)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e.Message);
+                Console.ResetColor();
+            }
         }
     }
 }
