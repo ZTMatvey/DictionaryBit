@@ -24,6 +24,7 @@ services.AddSingleton(config);
 
 services.AddScoped<CommandBase, StartCommand>();
 services.AddScoped<CommandBase, DefaultCommand>();
+services.AddScoped<CommandBase, SymbolWarningCommand>();
 
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();

@@ -48,7 +48,7 @@ namespace DictionaryBit.TelegramInteraction.Operations
             {
                 if (command.Contains("/"))
                 {
-                    var slashWarning = commands.First(x => x.CommandName == CommandNames.SlashWarning);
+                    var slashWarning = commands.First(x => x.CommandName == CommandNames.SymbolWarning);
                     return slashWarning;
                 }
                 return null;

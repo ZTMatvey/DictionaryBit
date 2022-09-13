@@ -27,7 +27,11 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command
         {
             var nextOperation = await ExecuteAndGetNextOperationAsync(user, content);
             if (string.IsNullOrEmpty(nextOperation))
-                session.Remove(SessionKeyNames.CurrentOperation);
+            {
+                var attribute = Attribute.GetCustomAttribute(GetType(), typeof(IgnoreCommandAttribute));
+                if(attribute == null)
+                    session.Remove(SessionKeyNames.CurrentOperation);
+            }
             else
                 session.Set(SessionKeyNames.CurrentOperation, nextOperation);
         }
