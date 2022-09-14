@@ -16,5 +16,7 @@ namespace DictionaryBit.Service
         public const string LossActiveDictionary = "/lossactivedictionary";
         public const string AddDictionary = "/adddictionary";
         public const string RemoveDictionary = "/removedictionary";
+        public const string GetDictionaries = "/getdictionaries";
+        public const string GetWords = "/getwords";
     }
 }

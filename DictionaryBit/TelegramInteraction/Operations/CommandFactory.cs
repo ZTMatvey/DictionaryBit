@@ -32,6 +32,7 @@ namespace DictionaryBit.TelegramInteraction.Operations
                 CommandNames.UseDictionary => commands.First(x=>x.CommandName == CommandNames.UseDictionary),
                 CommandNames.AddDictionary => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionary),
                 CommandNames.RemoveDictionary => commands.First(x=>x.CommandName == CommandNames.RemoveDictionary),
+                CommandNames.GetWords => commands.First(x=>x.CommandName == CommandNames.GetWords),
                 _ => null
             };
             return result;

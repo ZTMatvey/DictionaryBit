@@ -11,6 +11,8 @@ using DictionaryBit.TelegramInteraction.Operations.Command;
 using DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary;
 using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.AddDictionary;
 using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.RemoveDictionary;
+using DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWords;
+using DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetDictionaries;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -31,6 +33,8 @@ services.AddScoped<CommandBase, UseDictionaryCommand>();
 services.AddScoped<CommandBase, AddDictionaryCommand>();
 services.AddScoped<CommandBase, RemoveDictionaryCommand>();
 services.AddScoped<CommandBase, StartCommand>();
+services.AddScoped<CommandBase, GetDictionariesCommand>();
+services.AddScoped<CommandBase, GetWordsCommand>();
 services.AddScoped<CommandBase, DefaultCommand>();
 services.AddScoped<CommandBase, SymbolWarningCommand>();
 services.AddScoped<CommandBase, LossActiveDictionaryCommand>();
