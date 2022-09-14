@@ -13,7 +13,6 @@ namespace DictionaryBit.Service
         public const string SymbolWarning = "/symbolwarning";
         public const string Default = "/default";
         public const string UseDictionary = "/usedictionary";
-        public const string SetActiveDictionary = "/setactivedictionary";
         public const string LossActiveDictionary = "/lossactivedictionary";
     }
 }

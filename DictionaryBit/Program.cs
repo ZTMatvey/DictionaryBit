@@ -27,7 +27,6 @@ services.AddSingleton(config);
 services.AddSingleton<ActiveDictionary>();
 
 services.AddScoped<CommandBase, UseDictionaryCommand>();
-services.AddScoped<CommandBase, SetActiveDictionaryCommand>();
 services.AddScoped<CommandBase, StartCommand>();
 services.AddScoped<CommandBase, DefaultCommand>();
 services.AddScoped<CommandBase, SymbolWarningCommand>();

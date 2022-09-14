@@ -24,7 +24,7 @@ namespace DictionaryBit.Service
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
         }
     }

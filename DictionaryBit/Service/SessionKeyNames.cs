@@ -10,5 +10,6 @@ namespace DictionaryBit.Service
     {
         public const string CurrentOperation = "currentoperation";
         public const string ActiveDictionary = "activedictionary";
+        public const string UseDictionaryState = "usedictionarystate";
     }
 }

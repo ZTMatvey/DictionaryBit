@@ -1,6 +1,8 @@
 ﻿using DictionaryBit.Data.Entities;
 using DictionaryBit.Data.Repositories;
+using DictionaryBit.Enums;
 using DictionaryBit.Service;
+using DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,24 +26,38 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary
             var withNamePattern = $@"^\{CommandName} ([^\/]+)$";
             var withNameRegex = new Regex(withNamePattern);
             var withNameMatch = withNameRegex.Match(content);
+            IActiveDictionaryState state;
+            string result;
+            var commandState = session.Get<ActiveDictionaryState>(SessionKeyNames.UseDictionaryState);
             if (withNameMatch.Success)
             {
                 var name = withNameMatch.Groups[1].Value;
                 var dictionary = repositoryManager.DictionaryRepository.GetByName(name, user.Id);
-                if (dictionary == default)
-                    await botClient.SendTextMessageAsync(user.ChatId, $"У вас нет словаря '{name}'");
-                else
-                {
-                    _activeDictionary.Set(session, dictionary);
-                    await botClient.SendTextMessageAsync(user.ChatId, $"Словарь '{dictionary.Name}' теперь активен");
-                }
-                return string.Empty;
+                state = new SetActiveDictionaryState(botClient, session, user, dictionary, _activeDictionary, content);
+                closeCommand();
             }
-            else
+            else switch (commandState)
+                {
+                    case ActiveDictionaryState.None:
+                        state = new SelectDictionaryState(repositoryManager, user, botClient);
+                        session.Set(SessionKeyNames.UseDictionaryState, ActiveDictionaryState.SelectDictionary);
+                        result = CommandNames.UseDictionary;
+                        break;
+                    case ActiveDictionaryState.SelectDictionary:
+                        var dictionaryId = CommandHelper.GetDictionaryIdOrDefault(content);
+                        var dictionary = repositoryManager.DictionaryRepository.GetById(dictionaryId);
+                        state = new SetActiveDictionaryState(botClient, session, user, dictionary, _activeDictionary, content);
+                        closeCommand();
+                        break;
+                    default:
+                        throw new NotImplementedException();
+                }
+            await state.ExecuteAsync();
+            return result;
+            void closeCommand()
             {
-                var dictionaryKeyboard = CommandHelper.GetDictionariesKeyboard(repositoryManager, user);
-                await botClient.SendTextMessageAsync(user.ChatId, "Выберите словарь для активации", replyMarkup: dictionaryKeyboard);
-                return CommandNames.SetActiveDictionary;
+                session.Remove(SessionKeyNames.UseDictionaryState);
+                result = string.Empty;
             }
         }
     }
