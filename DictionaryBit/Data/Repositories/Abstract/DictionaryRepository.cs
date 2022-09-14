@@ -9,5 +9,7 @@ namespace DictionaryBit.Data.Repositories.Abstract
         Task SaveAsync(Dictionary entity);
         Dictionary CheckAndGetById(Guid dictionaryId, Guid userId);
         Dictionary? GetByName(string name, Guid userId);
+        public Task DeleteByIdAsync(Guid id);
+        public Task DeleteByNameAsync(string name, Guid userId);
     }
 }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DictionaryBit.TelegramInteraction.Operations
+namespace DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary
 {
     public sealed class ActiveDictionary
     {

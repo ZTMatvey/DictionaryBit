@@ -29,8 +29,9 @@ namespace DictionaryBit.TelegramInteraction.Operations
             
             var result = currentOperation switch
             {
-                //CommandNames.AddDictionaryName => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionaryName),
                 CommandNames.UseDictionary => commands.First(x=>x.CommandName == CommandNames.UseDictionary),
+                CommandNames.AddDictionary => slashCheck() ?? commands.First(x=>x.CommandName == CommandNames.AddDictionary),
+                CommandNames.RemoveDictionary => commands.First(x=>x.CommandName == CommandNames.RemoveDictionary),
                 _ => null
             };
             return result;

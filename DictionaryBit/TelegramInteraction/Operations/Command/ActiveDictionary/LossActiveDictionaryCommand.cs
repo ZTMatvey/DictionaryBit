@@ -13,8 +13,8 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary
     public class LossActiveDictionaryCommand : CommandBase
     {
         public override string CommandName => CommandNames.LossActiveDictionary;
-        private readonly Operations.ActiveDictionary _activeDictionary;
-        public LossActiveDictionaryCommand(RepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, ITelegramBot telegramBot, Operations.ActiveDictionary activeDictionary) : base(repositoryManager, httpContextAccessor, telegramBot)
+        private readonly ActiveDictionary _activeDictionary;
+        public LossActiveDictionaryCommand(RepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, ITelegramBot telegramBot, ActiveDictionary activeDictionary) : base(repositoryManager, httpContextAccessor, telegramBot)
         {
             _activeDictionary = activeDictionary;
         }

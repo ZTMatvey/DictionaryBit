@@ -8,8 +8,9 @@ using DictionaryBit.Service;
 using Microsoft.EntityFrameworkCore;
 using DictionaryBit.Data.Interaction;
 using DictionaryBit.TelegramInteraction.Operations.Command;
-using DictionaryBit.TelegramInteraction.Operations;
 using DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary;
+using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.AddDictionary;
+using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.RemoveDictionary;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -27,6 +28,8 @@ services.AddSingleton(config);
 services.AddSingleton<ActiveDictionary>();
 
 services.AddScoped<CommandBase, UseDictionaryCommand>();
+services.AddScoped<CommandBase, AddDictionaryCommand>();
+services.AddScoped<CommandBase, RemoveDictionaryCommand>();
 services.AddScoped<CommandBase, StartCommand>();
 services.AddScoped<CommandBase, DefaultCommand>();
 services.AddScoped<CommandBase, SymbolWarningCommand>();

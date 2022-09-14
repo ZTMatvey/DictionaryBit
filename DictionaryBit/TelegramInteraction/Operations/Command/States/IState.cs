@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
-namespace DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary.States
+namespace DictionaryBit.TelegramInteraction.Operations.Command.States
 {
-    public interface IActiveDictionaryState
+    public interface IState
     {
         Task ExecuteAsync();
     }

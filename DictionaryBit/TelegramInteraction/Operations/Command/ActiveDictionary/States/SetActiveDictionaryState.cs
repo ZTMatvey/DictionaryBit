@@ -1,4 +1,5 @@
 ﻿using DictionaryBit.Data.Entities;
+using DictionaryBit.TelegramInteraction.Operations.Command.States;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,23 +9,21 @@ using Telegram.Bot;
 
 namespace DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary.States
 {
-    public class SetActiveDictionaryState : IActiveDictionaryState
+    public class SetActiveDictionaryState : IState
     {
         private readonly TelegramBotClient _botClient;
         private readonly ISession _session;
         private readonly User _user;
         private readonly Dictionary _dictionary;
-        private readonly Operations.ActiveDictionary _activeDictionary;
-        private readonly string _content;
+        private readonly ActiveDictionary _activeDictionary;
 
-        public SetActiveDictionaryState(TelegramBotClient botClient, ISession session, User user, Dictionary dictionary, Operations.ActiveDictionary activeDictionary, string content)
+        public SetActiveDictionaryState(TelegramBotClient botClient, ISession session, User user, Dictionary dictionary, ActiveDictionary activeDictionary)
         {
-            this._botClient = botClient;
-            this._session = session;
-            this._user = user;
-            this._dictionary = dictionary;
-            this._activeDictionary = activeDictionary;
-            this._content = content;
+            _botClient = botClient;
+            _session = session;
+            _user = user;
+            _dictionary = dictionary;
+            _activeDictionary = activeDictionary;
         }
         public async Task ExecuteAsync()
         {

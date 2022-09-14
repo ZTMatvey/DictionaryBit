@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DictionaryBit.Enums
 {
-    public enum ActiveDictionaryState
+    public enum DictionarySelect
     {
         None,
         SelectDictionary

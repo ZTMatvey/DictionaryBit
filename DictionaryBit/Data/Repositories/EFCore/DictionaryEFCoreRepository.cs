@@ -48,5 +48,21 @@ namespace DictionaryBit.Data.Repositories.EFCore
                 return default;
             return dictionary;
         }
+        public async Task DeleteByIdAsync(Guid id)
+        {
+            var dictionary = _context.Dictionaries.FirstOrDefault(x => x.Id == id);
+            if (dictionary == null)
+                return;
+            _context.Dictionaries.Remove(dictionary);
+            await _context.SaveChangesAsync();
+        }
+        public async Task DeleteByNameAsync(string name, Guid userId)
+        {
+            var dictionary = _context.Dictionaries.FirstOrDefault(x => x.Name == name && x.UserId == userId);
+            if (dictionary == null)
+                return;
+            _context.Dictionaries.Remove(dictionary);
+            await _context.SaveChangesAsync();
+        }
     }
 }

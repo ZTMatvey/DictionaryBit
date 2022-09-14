@@ -35,5 +35,14 @@ namespace DictionaryBit.Service
             var result = Guid.Parse(match.Groups[1].Value);
             return result;
         }
+        public static string? GetNameFromCommand(string commandName, string input)
+        {
+            var pattern = $@"^\{commandName} ([^\/]+)$";
+            var regex = new Regex(pattern);
+            var match = regex.Match(input);
+            if(match.Success && !string.IsNullOrWhiteSpace(match.Groups[1].Value))
+                return match.Groups[1].Value;
+            return null;
+        }
     }
 }
