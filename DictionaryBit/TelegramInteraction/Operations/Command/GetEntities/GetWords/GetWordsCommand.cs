@@ -19,7 +19,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWo
         { }
         protected override async Task<string> ExecuteAndGetNextOperationAsync(User user, string content)
         {
-            var dictionaryName = CommandHelper.GetNameContentCommand(CommandName, content, "from ");
+            var dictionaryName = CommandHelper.GetContentCommand(CommandName, content, "from ");
             IState state;
             string result = CommandName;
             var commandState = session.Get<Enums.GetWords>(CommandName);

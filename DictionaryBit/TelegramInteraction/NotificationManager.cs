@@ -22,7 +22,6 @@ namespace DictionaryBit.TelegramInteraction
             _repositoryManager = scope.ServiceProvider.GetRequiredService<RepositoryManager>();
             _botClient = scope.ServiceProvider.GetRequiredService<ITelegramBot>().GetBot().Result;
             _config = scope.ServiceProvider.GetRequiredService<Config>();
-            var users = _repositoryManager.UserRepository.GetAllUsers();
         }
 
         public async void Dispose()

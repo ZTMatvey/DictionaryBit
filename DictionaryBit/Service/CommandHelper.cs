@@ -35,7 +35,7 @@ namespace DictionaryBit.Service
             var result = Guid.Parse(match.Groups[1].Value);
             return result;
         }
-        public static string? GetNameContentCommand(string commandName, string input, string preposition = "")
+        public static string? GetContentCommand(string commandName, string input, string preposition = "")
         {
             var pattern = $@"^\{commandName} {preposition}([^\/]+)$";
             var regex = new Regex(pattern);

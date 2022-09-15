@@ -22,5 +22,6 @@ namespace DictionaryBit.Service
         public const string RemoveWord = "/removewords";
         public const string Help = "/help";
         public const string AddWord = "/addword";
+        public const string RandomWord = "/randomword";
     }
 }

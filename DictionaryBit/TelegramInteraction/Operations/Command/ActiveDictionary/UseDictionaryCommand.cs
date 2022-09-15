@@ -24,7 +24,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.ActiveDictionary
         }
         protected override async Task<string> ExecuteAndGetNextOperationAsync(User user, string content)
         {
-            var name = CommandHelper.GetNameContentCommand(CommandName, content);
+            var name = CommandHelper.GetContentCommand(CommandName, content);
             IState state;
             string result;
             var commandState = session.Get<DictionarySelect>(CommandName);

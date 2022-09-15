@@ -51,6 +51,11 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command
             resultBuilder.AppendLine($"{CommandNames.AddWord}— начать операцию добавления");
             resultBuilder.AppendLine($"{CommandNames.AddWord} f/n/d— задать слову параметры foreign, native, description соответственно");
             resultBuilder.AppendLine($"{CommandNames.AddWord} f/n/d to <dictionaryName>— добавить слово с параметрами foreign, native, description в словарь <dictionaryName>");
+            resultBuilder.AppendLine();
+            resultBuilder.AppendLine($"*Random word*");
+            resultBuilder.AppendLine("Получить случайное слово. Вариации:");
+            resultBuilder.AppendLine($"{CommandNames.GetDictionaries}— из всех словарей");
+            resultBuilder.AppendLine($"{CommandNames.GetDictionaries} from <dictionaryName>— из словаря <dictionaryName>");
 
             await botClient.SendTextMessageAsync(user.ChatId, resultBuilder.ToString(), parseMode:Telegram.Bot.Types.Enums.ParseMode.Markdown);
             
