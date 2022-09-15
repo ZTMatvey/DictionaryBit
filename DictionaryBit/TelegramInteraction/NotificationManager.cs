@@ -10,7 +10,7 @@ using Telegram.Bot;
 
 namespace DictionaryBit.TelegramInteraction
 {
-    public sealed class NotificationManager: IHostedService, IDisposable
+    public sealed class NotificationManager : IHostedService, IDisposable
     {
         private readonly RepositoryManager _repositoryManager;
         private readonly TelegramBotClient _botClient;
@@ -22,9 +22,10 @@ namespace DictionaryBit.TelegramInteraction
             _repositoryManager = scope.ServiceProvider.GetRequiredService<RepositoryManager>();
             _botClient = scope.ServiceProvider.GetRequiredService<ITelegramBot>().GetBot().Result;
             _config = scope.ServiceProvider.GetRequiredService<Config>();
+            var users = _repositoryManager.UserRepository.GetAllUsers();
         }
 
-        public void Dispose()
+        public async void Dispose()
         {
             _timer?.Dispose();
         }
@@ -45,17 +46,21 @@ namespace DictionaryBit.TelegramInteraction
             }
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
+            var users = _repositoryManager.UserRepository.GetAllUsers();
+            foreach (var user in users)
+                await _botClient.SendTextMessageAsync(user.ChatId, "<<Бот запущен>>");
             _timer?.Dispose();
-            _timer = new Timer(s=> SendNotifications(), null, TimeSpan.Zero, TimeSpan.FromMinutes(_config.NotificationFrequency));
-            return Task.CompletedTask;
+            _timer = new Timer(s => SendNotifications(), null, TimeSpan.Zero, TimeSpan.FromMinutes(_config.NotificationFrequency));
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public async Task StopAsync(CancellationToken cancellationToken)
         {
+            var users = _repositoryManager.UserRepository.GetAllUsers();
+            foreach (var user in users)
+                await _botClient.SendTextMessageAsync(user.ChatId, "<<Бот остановлен>>");
             _timer?.Change(Timeout.Infinite, 0);
-            return Task.CompletedTask;
         }
     }
 }

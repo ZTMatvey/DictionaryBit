@@ -14,9 +14,11 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create
     {
         private readonly WordInteraction _wordInteraction;
         public override string CommandName => CommandNames.AddWord;
-        public AddWordCommand(RepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, ITelegramBot telegramBot, WordInteraction wordInteraction) : base(repositoryManager, httpContextAccessor, telegramBot)
+        private readonly ActiveDictionary.ActiveDictionary _activeDictionary;
+        public AddWordCommand(RepositoryManager repositoryManager, IHttpContextAccessor httpContextAccessor, ITelegramBot telegramBot, WordInteraction wordInteraction, ActiveDictionary.ActiveDictionary activeDictionary) : base(repositoryManager, httpContextAccessor, telegramBot)
         {
             _wordInteraction = wordInteraction;
+            _activeDictionary = activeDictionary;
         }
         protected override async Task<string> ExecuteAndGetNextOperationAsync(User user, string content)
         {
@@ -36,10 +38,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create
                     await botClient.SendTextMessageAsync(user.ChatId, "У вас нет данного словаря");
                     return string.Empty;
                 }
-                session.Set(SessionKeyNames.WordDictionaryId, dictionary.Id);
-                state = new AddWordState(repositoryManager, _wordInteraction, botClient, session, user);
-                result = string.Empty;
-                session.Remove(CommandName);
+                closeCommand(dictionary);
             }
             else
             {
@@ -74,9 +73,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create
                         case AddWord.SelectDictionary:
                             var dictionaryId = CommandHelper.GetDictionaryIdOrDefault(content);
                             var dictionary = repositoryManager.DictionaryRepository.GetById(dictionaryId);
-                            session.Remove(CommandName);
-                            session.Set(SessionKeyNames.WordDictionaryId, dictionary.Id);
-                            state = new AddWordState(repositoryManager, _wordInteraction, botClient, session, user);
+                            closeCommand(dictionary);
                             break;
                         default:
                             throw new NotImplementedException();
@@ -86,8 +83,21 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create
             return result;
             void selectDictionaryState()
             {
-                state = new SelectDictionaryState(repositoryManager, user, botClient, ", куда хотите добавить слово");
-                session.Set(CommandName, AddWord.SelectDictionary);
+                var activeDictionary = _activeDictionary.Get(session);
+                if (activeDictionary == default)
+                {
+                    state = new SelectDictionaryState(repositoryManager, user, botClient, ", куда хотите добавить слово");
+                    session.Set(CommandName, AddWord.SelectDictionary);
+                    return;
+                }
+                closeCommand(activeDictionary);
+            }
+            void closeCommand(Dictionary dictionary)
+            {
+                session.Set(SessionKeyNames.WordDictionaryId, dictionary.Id);
+                state = new AddWordState(repositoryManager, _wordInteraction, botClient, session, user);
+                result = string.Empty;
+                session.Remove(CommandName);
             }
         }
         private void SetWordDataToSession(Match match)
