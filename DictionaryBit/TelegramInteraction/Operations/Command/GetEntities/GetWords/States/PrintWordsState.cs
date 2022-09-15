@@ -44,8 +44,8 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWo
             for (int i = 0; i < words.Length; i++)
                 messageBuilder.AppendLine($"{i + 1}. {words[i]}");
             var buttons = new InlineKeyboardButton[] {
-                    new InlineKeyboardButton("Редактировать"){CallbackData="edit"},
-                    new InlineKeyboardButton("Удалить"){CallbackData="delete"}};
+                    new InlineKeyboardButton("Редактировать"){CallbackData=CommandNames.EditWord},
+                    new InlineKeyboardButton("Удалить"){CallbackData=CommandNames.RemoveWord}};
             var keyboard = new InlineKeyboardMarkup(buttons);
             await _botClient.SendTextMessageAsync(_user.ChatId, messageBuilder.ToString(), replyMarkup: keyboard);
         }

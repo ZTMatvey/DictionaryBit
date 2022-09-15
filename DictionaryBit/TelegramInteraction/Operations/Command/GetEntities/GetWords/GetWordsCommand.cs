@@ -19,10 +19,10 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWo
         { }
         protected override async Task<string> ExecuteAndGetNextOperationAsync(User user, string content)
         {
-            var dictionaryName = CommandHelper.GetNameFromCommand(CommandName, content);
+            var dictionaryName = CommandHelper.GetNameContentCommand(CommandName, content, "from ");
             IState state;
-            string result;
-            var commandState = session.Get<DictionarySelect>(CommandName);
+            string result = CommandName;
+            var commandState = session.Get<Enums.GetWords>(CommandName);
             if (dictionaryName != null)
             {
                 var dictionary = repositoryManager.DictionaryRepository.GetByName(dictionaryName, user.Id);
@@ -30,12 +30,11 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWo
             }
             else switch (commandState)
                 {
-                    case DictionarySelect.None:
+                    case Enums.GetWords.None:
                         state = new SelectDictionaryState(repositoryManager, user, botClient, "для получения слов");
-                        result = CommandName;
-                        session.Set(CommandName, DictionarySelect.SelectDictionary);
+                        session.Set(CommandName, Enums.GetWords.SelectDictionary);
                         break;
-                    case DictionarySelect.SelectDictionary:
+                    case Enums.GetWords.SelectDictionary:
                         var dictionaryId = CommandHelper.GetDictionaryIdOrDefault(content);
                         var dictionary = repositoryManager.DictionaryRepository.GetById(dictionaryId);
                         closeCommand(dictionary);
@@ -48,8 +47,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWo
             void closeCommand(Dictionary dictionary)
             {
                 state = new PrintWordsState(repositoryManager, user, botClient, dictionary);
-                result = string.Empty;
-                session.Remove(CommandName);
+                session.Set(CommandName, Enums.GetWords.WordsOperation);
             }
         }
     }

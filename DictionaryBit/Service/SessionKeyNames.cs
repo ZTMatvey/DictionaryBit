@@ -10,5 +10,9 @@ namespace DictionaryBit.Service
     {
         public const string CurrentOperation = "currentoperation";
         public const string ActiveDictionary = "activedictionary";
+        public const string WordForeign = "wordforeign";
+        public const string WordNative = "wordnative";
+        public const string WordDescription = "worddescription";
+        public const string WordDictionaryId = "worddictionaryid";
     }
 }

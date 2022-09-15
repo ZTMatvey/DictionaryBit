@@ -13,6 +13,7 @@ using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.A
 using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.RemoveDictionary;
 using DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWords;
 using DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetDictionaries;
+using DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -38,6 +39,7 @@ services.AddScoped<CommandBase, GetWordsCommand>();
 services.AddScoped<CommandBase, DefaultCommand>();
 services.AddScoped<CommandBase, SymbolWarningCommand>();
 services.AddScoped<CommandBase, LossActiveDictionaryCommand>();
+services.AddScoped<CommandBase, AddWordCommand>();
 
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();
