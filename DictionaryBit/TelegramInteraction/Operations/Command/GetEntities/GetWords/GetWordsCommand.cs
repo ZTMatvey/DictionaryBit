@@ -47,7 +47,7 @@ namespace DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWo
             void closeCommand(Dictionary dictionary)
             {
                 state = new PrintWordsState(repositoryManager, user, botClient, dictionary);
-                session.Set(CommandName, Enums.GetWords.WordsOperation);
+                session.Remove(CommandName);
             }
         }
     }

@@ -40,6 +40,7 @@ services.AddScoped<CommandBase, DefaultCommand>();
 services.AddScoped<CommandBase, SymbolWarningCommand>();
 services.AddScoped<CommandBase, LossActiveDictionaryCommand>();
 services.AddScoped<CommandBase, AddWordCommand>();
+services.AddScoped<CommandBase, HelpCommand>();
 
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();
