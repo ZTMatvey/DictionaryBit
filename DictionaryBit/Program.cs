@@ -14,6 +14,7 @@ using DictionaryBit.TelegramInteraction.Operations.Command.DictionaryManagment.R
 using DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetWords;
 using DictionaryBit.TelegramInteraction.Operations.Command.GetEntities.GetDictionaries;
 using DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create;
+using DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Update;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -42,6 +43,7 @@ services.AddScoped<CommandBase, LossActiveDictionaryCommand>();
 services.AddScoped<CommandBase, AddWordCommand>();
 services.AddScoped<CommandBase, HelpCommand>();
 services.AddScoped<CommandBase, RandomWordCommand>();
+services.AddScoped<CommandBase, EditWordCommand>();
 
 services.AddScoped<UserRepository, UserEFCoreRepository>();
 services.AddScoped<DictionaryRepository, DictionaryEFCoreRepository>();

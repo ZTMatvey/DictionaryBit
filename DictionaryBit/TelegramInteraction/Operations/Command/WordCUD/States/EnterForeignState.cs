@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
-namespace DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.Create.States
+namespace DictionaryBit.TelegramInteraction.Operations.Command.WordCUD.States
 {
     public class EnterForeignState : IState
     {

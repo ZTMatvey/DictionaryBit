@@ -44,5 +44,10 @@ namespace DictionaryBit.Service
                 return match.Groups[1].Value;
             return null;
         }
+        public static Word? GetWordFromLocalId(RepositoryManager repositoryManager, Guid dictionaryId, int localId)
+        {
+            var words = repositoryManager.WordRepository.GetAllWordsByDictionaryId(dictionaryId);
+            return words.Skip(localId - 1).FirstOrDefault();
+        }
     }
 }
